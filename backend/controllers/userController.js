@@ -13,7 +13,7 @@ export const registerUser=async(req,res)=>{
         req.body.email,
         hashedPass
     ]
-    const query="INSERT INTO user(Name,Email,Password) VALUES(?);"
+    const query="INSERT INTO user(Name,Email,Password) VALUES(?)"
 
     db.query(query,[values],(err,data)=>{
         if(err){
@@ -25,10 +25,47 @@ export const registerUser=async(req,res)=>{
     })
 }
 
-export const loginUser=(req,res)=>{
-    res.send("Login");
+export const loginUser=async(req,res)=>{
+    const {email,password}=req.body;
+    const query="SELECT * FROM user WHERE Email=?"
+
+    db.query(query,[email],async(err,data)=>{
+        if(err){
+            res.send(err);
+            
+        }else{
+            if(data.length>0){
+                if(await bcrypt.compare(password,data[0].Password)){
+                    res.send("Login success!")
+                }else{
+                    res.send("Email Or Password Incorrect!")
+                }
+                
+            }else{
+                res.send("Email Or Password Incorrect!")
+            }
+            
+        }
+        
+    })
 }
 
 export const verifyUser=(req,res)=>{
-    res.send("Verified");
+    const token=req.query.token
+
+    const query="SELECT * FROM user WHERE Token=?"
+
+    db.query(query,[token],async(err,data)=>{
+        if(err){
+            res.send(err);
+        }else{
+            if(data.length>0){
+                
+            }else{
+                res.send("Invalied link!")
+            }
+            
+        }
+    })
+
 }
