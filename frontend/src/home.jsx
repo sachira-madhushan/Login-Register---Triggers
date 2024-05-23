@@ -28,7 +28,7 @@ function Home() {
             </header>
             <div className="middle">
                 <h3>Welcome to our Travelo</h3>
-                <button className='login-btn' onClick={()=> navigate('login')}><h2>Click here to Login</h2></button>
+                <button className='login-btn' onClick={()=> navigate('login')}><h2>Login Here</h2></button>
             </div>
         </>
     );
