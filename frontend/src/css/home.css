@@ -16,6 +16,11 @@ header {
     padding: 0 10px;
 }
 
+body {
+    background: url('../assets/login.jpg') no-repeat center center fixed;
+    background-size: cover;
+}
+
 .navbar {
     display: flex;
     padding: 22px 0;
