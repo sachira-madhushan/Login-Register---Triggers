@@ -1,5 +1,6 @@
 import 'react'
 import './css/home.css'
+import logo from './assets/logo.png'
 function Home() {
     return (
         <>
@@ -7,7 +8,7 @@ function Home() {
         <nav class="navbar">
             <span class="hamburger-btn material-symbols-rounded">menu</span>
             <a href="#" class="logo">
-                <img src="assets/logo.png" alt="logo"></img>
+                <img src={logo} alt="logo"></img>
                 <h2><b><span>Travelo</span></b></h2>
             </a>
             <ul class="links">
