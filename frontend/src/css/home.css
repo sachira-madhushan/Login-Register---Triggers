@@ -16,7 +16,13 @@ header {
     padding: 0 10px;
 }
 
-body {
+
+body, html {
+    height: 100%;
+    margin: 0;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center;    /* Center vertically */
     background: url('../assets/login.jpg') no-repeat center center fixed;
     background-size: cover;
 }
@@ -101,4 +107,30 @@ span{
 
 .navbar .login-btn:hover {
     background: #ddd;
+}
+
+.middle {
+    text-align: center;
+    height: 10vh;
+}
+
+.middle h3 {
+    font-size: 68px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #e8d7d7;
+    text-shadow: 16px 14px 4px rgba(0, 0, 0, 0.75);
+} 
+
+body .login-btn{
+    border: none;
+    outline: none;
+    background: #fff;
+    color: #275360;
+    font-size: 1rem;
+    font-weight: 600;
+    padding: 10px 18px;
+    border-radius: 3px;
+    cursor: pointer;
+    transition: 0.15s ease;
+    box-shadow: 16px 14px 31px 5px rgba(0, 0, 0, 0.75);
 }

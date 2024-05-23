@@ -21,13 +21,13 @@ function Home() {
             </ul>
             <button class="login-btn">LOG IN</button>
         </nav>
-            <div class="middle">
-            <h3>Welcome to our Travelo  </h3>
-            <p>Click here to Login</p>
-            <button class="login-btn">LOG IN</button>
-	 </div>
     </header>
-        </>
+    <div class="middle">
+        <h3>Welcome to our Travelo  </h3>
+        <button class='login-btn'>Click here to Login</button>
+        {/* <button class="login-btn">LOG IN</button> */}
+	</div>
+    </>
     );
 }
 
