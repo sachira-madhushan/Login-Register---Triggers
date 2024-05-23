@@ -47,7 +47,7 @@ function Login() {
 
                     <button type='submit' className="btn">Login</button>
                     <div className="register-link"></div>
-                    <p>Don't have account?  <a href='#'>Register</a></p> 
+                    <p>Don't have account?  <a href='#' onClick={()=> navigate('/register')}>Register</a></p> 
                 </form>
             </div>
         </>
