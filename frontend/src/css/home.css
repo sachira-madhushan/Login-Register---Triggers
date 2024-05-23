@@ -4,7 +4,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family: "Open Sans", sans-serif;
+    font-family: "Poppins", sans-serif;
 }
 
 header {
@@ -104,7 +104,7 @@ span{
 
 .middle h3 {
     font-size: 68px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     color: #e8d7d7;
     text-shadow: 16px 1px 4px rgba(0, 0, 0, 0.5);
     padding: 20px;
