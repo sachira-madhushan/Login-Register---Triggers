@@ -111,13 +111,14 @@ span{
 } 
 
 .login-btn {
-    border: 5px solid white; 
+    border: 5px solid rgba(255, 255, 255, .2);
     outline: none;
-    background: #255a86;
+    background: transparent;
+    backdrop-filter: blur(20px);
     border-radius: 30px;
     cursor: pointer;
     transition: 0.15s ease;
-    box-shadow: 16px 14px 31px 5px rgba(0, 0, 0, 0.75);
+    box-shadow: 0 0 10px rgba(0, 0, 0, .2);
     box-sizing: border-box;
 }
   
