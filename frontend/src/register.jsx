@@ -19,7 +19,7 @@ function Register(){
                         <i className="bx bxs-lock-alt"></i>
                     </div>
                     <div className="terms">
-                        <label><input type='chechbox'>I agree to </input></label>
+                        <label><input type=''>I agree to </input></label>
                         <a href="#" className="option">Terms & Conditions</a>
                     </div>
                     <button type='submit' className="btn">Register</button>
