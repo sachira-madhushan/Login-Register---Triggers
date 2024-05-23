@@ -1,7 +1,7 @@
 @import url("https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;500;600;700&display=swap");
 
 * {
-    margin: 0;
+    margin:0;
     padding: 0;
     box-sizing: border-box;
     font-family: "Poppins", sans-serif;
@@ -15,7 +15,6 @@ header {
     z-index: 10;
     padding: 0 10px;
 }
-
 
 body, html {
     height: 100%;
@@ -103,7 +102,7 @@ span{
 }
 
 .middle h3 {
-    font-size: 68px;
+    font-size: 5rem;
     /* font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; */
     color: #e8d7d7;
     text-shadow: 16px 1px 4px rgba(0, 0, 0, 0.5);
