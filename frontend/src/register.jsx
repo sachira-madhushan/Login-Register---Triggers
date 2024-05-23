@@ -43,10 +43,13 @@ function Register(){
                     <input type='password' placeholder='Password' required/>
                         <i className="bx bxs-lock-alt"></i>
                     </div>
-                    {/* <div className="terms">
-                        <label><input type=''>I agree to </input></label>
-                        <a href="#" className="option">Terms & Conditions</a>
-                    </div> */}
+                    <div className="terms">
+
+                    <label >
+                        <input type="checkbox" /> I agree to <a href="#" className="option">Terms & Conditions</a>
+                    </label>
+                    </div>
+                    
                     <button type='submit' className="btn" >Register</button>
                     
                     <div className="login-link"></div>
