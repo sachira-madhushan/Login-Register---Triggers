@@ -7,7 +7,7 @@ function Home() {
         <nav class="navbar">
             <span class="hamburger-btn material-symbols-rounded">menu</span>
             <a href="#" class="logo">
-                <img src="logo.png" alt="logo"></img>
+                <img src="assets/logo.png" alt="logo"></img>
                 <h2><b><span>Travelo</span></b></h2>
             </a>
             <ul class="links">
