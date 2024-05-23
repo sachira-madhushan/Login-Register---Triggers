@@ -4,6 +4,6 @@ import Home from './home.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    <Login  />
+    <Home  />
   </React.StrictMode>,
 )

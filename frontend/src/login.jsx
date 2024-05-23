@@ -8,7 +8,7 @@ function Login(){
                     <h1>Login</h1>
                     <div class = "input-box">
                         <input type='text' placeholder='Email' required/>
-                        <i class="bx bxs-user"></i>
+                        <i class='bx bxs-envelope' ></i>
                     </div>
                     <div class="input-box">
                     <input type='password' placeholder='Password' required/>
