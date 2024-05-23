@@ -21,7 +21,7 @@ function Home() {
             <button class="login-btn">LOG IN</button>
         </nav>
             <div class="middle">
-            <h3>Welcome to our Travelo  </h3><br>
+            <h3>Welcome to our Travelo  </h3>
             <p>Click here to Login</p>
             <button class="login-btn">LOG IN</button>
 	 </div>
