@@ -3,28 +3,28 @@ import 'react'
 function Register(){
     return(
         <>
-            <div class="wrapper1">
+            <div className="wrapper1">
                 <form action=''>
                     <h1>Register</h1>
-                    <div class = "input-box1">
+                    <div className = "input-box1">
                         <input type='text' placeholder='Username' required/>
-                        <i class="bx bxs-user"></i>
+                        <i className="bx bxs-user"></i>
                     </div>
-                    <div class = "input-box1">
+                    <div className = "input-box1">
                         <input type='text' placeholder='Email' required/>
-                        <i class='bx bxs-envelope' ></i>
+                        <i className='bx bxs-envelope' ></i>
                     </div>
-                    <div class="input-box1">
+                    <div className="input-box1">
                     <input type='password' placeholder='Password' required/>
-                        <i class="bx bxs-lock-alt"></i>
+                        <i className="bx bxs-lock-alt"></i>
                     </div>
-                    <div class="terms">
+                    <div className="terms">
                         <label><input type='chechbox'>I agree to </input></label>
-                        <a href="#" class="option">Terms & Conditions</a>
+                        <a href="#" className="option">Terms & Conditions</a>
                     </div>
-                    <button type='submit' class="btn">Register</button>
+                    <button type='submit' className="btn">Register</button>
                     
-                    <div class="login-link"></div>
+                    <div className="login-link"></div>
                     <p>Already have an account?  <a href='#'>Login</a></p>
                 </form>
             </div>
