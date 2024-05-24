@@ -1,10 +1,25 @@
-import React from "react";
 import './css/register.css';
 import logo from './assets/logo.png';
+
+import React, {useState} from "react";
 import { useNavigate } from "react-router-dom";
 
 function Register(){
     const navigate = useNavigate();
+
+    const [values, setValues] = useState({
+        email : '',
+        password: ''
+    })
+
+    const handleInput = (event) => {
+        setValues(prev => ({...prev, [event.target.name]:[event.target.value]}))
+    }
+
+    const handleSubmit =(event) => {
+        event.preventDefault();
+    }
+
     return(
         <>
 
@@ -29,32 +44,32 @@ function Register(){
             </header>  
             
             <div className="wrapper1">
-                <form action=''>
+                <form action='' onSubmit={handleSubmit}>
                     <h1>Register</h1>
                     <div className = "input-box1">
-                        <input type='text' placeholder='Username' required/>
+                        <input type='text' placeholder='Username' required name='userName'/>
                         <i className="bx bxs-user"></i>
                     </div>
                     <div className = "input-box1">
-                        <input type='text' placeholder='Email' required/>
+                        <input type='text' placeholder='Email' required name='email'/>
                         <i className='bx bxs-envelope' ></i>
                     </div>
                     <div className="input-box1">
-                    <input type='password' placeholder='Password' required/>
+                    <input type='password' placeholder='Password' required name='password'/>
                         <i className="bx bxs-lock-alt"></i>
                     </div>
                     <div className="input-box1">
-                    <input type='password' placeholder='Password' required/>
+                    <input type='password' placeholder='Retype the Password' required name='passworRe'/>
                         <i className="bx bxs-lock-alt"></i>
                     </div>
                     <div className="terms">
 
                     <label >
-                        <input type="checkbox" /> I agree to <a href="#" className="option">Terms & Conditions</a>
+                        <input type="checkbox" name='t&c'/> I agree to <a href="#" className="option">Terms & Conditions</a>
                     </label>
                     </div>
                     
-                    <button type='submit' className="btn" >Register</button>
+                    <button type='submit' className="btn" name='submit' >Register</button>
                     
                     <div className="login-link"></div>
                     <p>Already have an account?  <a href='#' onClick={()=> navigate('/login')}>Login</a></p>
