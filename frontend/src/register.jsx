@@ -1,82 +1,114 @@
 import './css/register.css';
 import logo from './assets/logo.png';
+import Validation from './registerValidation'; // Import validation function
 
-import React, {useState} from "react";
+import React, { useState } from "react"; // Removed unused useEffect hook
 import { useNavigate } from "react-router-dom";
 
-function Register(){
-    const navigate = useNavigate();
+function Register() {
+  const navigate = useNavigate();
 
-    const [values, setValues] = useState({
-        email : '',
-        password: ''
-    })
+  const [values, setValues] = useState({
+    username: '',
+    email: '',
+    password: '',
+    passwordRe: '',
+    tandc: false, // Initialize checkbox state
+  });
 
-    const handleInput = (event) => {
-        setValues(prev => ({...prev, [event.target.name]:[event.target.value]}))
+  const [errors, setErrors] = useState({}); // State for validation errors
+
+  const handleInput = (event) => {
+    const { name, value, type, checked } = event.target;
+    setValues(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
+
+    // Clear specific error for the field being modified
+    setErrors(prevErrors => {
+      const newErrors = { ...prevErrors };
+      delete newErrors[name];
+      return newErrors;
+    });
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    const newErrors = Validation(values); // Call external validation function
+    setErrors(newErrors); // Update errors state with returned errors
+
+    if (Object.keys(newErrors).length === 0) {
+      // Proceed with form submission logic, e.g., send data to the server
+      console.log('Form submitted successfully');
     }
+  };
 
-    const handleSubmit =(event) => {
-        event.preventDefault();
-    }
+  return (
+    <>
+      <header>
+        <nav className="navbar">
+          {/* ... (navigation elements) ... */}
+        </nav>
+      </header>
 
-    return(
-        <>
+      <div className="wrapper1">
+        <form onSubmit={handleSubmit}>
+          <h1>Register</h1>
+          <div className="input-box1">
+            <input
+              type='text'
+              placeholder='Username'
+              required
+              name='username'
+              onChange={handleInput}
+            />
+            {errors.username && <span className='form_error'>{errors.username}</span>}
+          </div>
+          <div className="input-box1">
+            <input
+              type='text'
+              placeholder='Email'
+              required
+              name='email'
+              onChange={handleInput}
+            />
+            {errors.email && <span className='form_error'>{errors.email}</span>}
+          </div>
+          <div className="input-box1">
+            <input
+              type='password'
+              placeholder='Password'
+              required
+              name='password'
+              onChange={handleInput}
+            />
+            {errors.password && <span className='form_error'>{errors.password}</span>}
+          </div>
+          <div className="input-box1">
+            <input
+              type='password'
+              placeholder='Retype the Password'
+              required
+              name='passwordRe'
+              onChange={handleInput}
+            />
+            {errors.passwordRe && <span className='form_error'>{errors.passwordRe}</span>}
+          </div>
 
-            <header>
-                <nav className="navbar">
-                    <span className="hamburger-btn material-symbols-rounded">menu</span>
-                    <a href="#" className="logo" onClick={()=> navigate('/')}>
-                        <img src={logo} alt="logo"></img>
-                        <h2><b><span>Travelo</span></b></h2>
-                    </a>
-                                    
-                    {/* <ul className="links">
-                        <span className="close-btn material-symbols-rounded">close</span>
-                        <li><a href="#">Home</a></li>
-                        <li><a href="#">Hotel</a></li>
-                        <li><a href="#">Place</a></li>
-                        <li><a href="#">About us</a></li>
-                        <li><a href="#">Contact us</a></li>
-                    </ul> */}
-               
-                </nav> 
-            </header>  
-            
-            <div className="wrapper1">
-                <form action='' onSubmit={handleSubmit}>
-                    <h1>Register</h1>
-                    <div className = "input-box1">
-                        <input type='text' placeholder='Username' required name='userName'/>
-                        <i className="bx bxs-user"></i>
-                    </div>
-                    <div className = "input-box1">
-                        <input type='text' placeholder='Email' required name='email'/>
-                        <i className='bx bxs-envelope' ></i>
-                    </div>
-                    <div className="input-box1">
-                    <input type='password' placeholder='Password' required name='password'/>
-                        <i className="bx bxs-lock-alt"></i>
-                    </div>
-                    <div className="input-box1">
-                    <input type='password' placeholder='Retype the Password' required name='passworRe'/>
-                        <i className="bx bxs-lock-alt"></i>
-                    </div>
-                    <div className="terms">
+          <div className="terms">
+            <label>
+              <input type="checkbox" name='tandc' checked={values.tandc} onChange={handleInput} /> I agree to <a href="#" className="option">Terms & Conditions</a>
+            </label>
+          </div>
 
-                    <label >
-                        <input type="checkbox" name='t&c'/> I agree to <a href="#" className="option">Terms & Conditions</a>
-                    </label>
-                    </div>
-                    
-                    <button type='submit' className="btn" name='submit' >Register</button>
-                    
-                    <div className="login-link"></div>
-                    <p>Already have an account?  <a href='#' onClick={()=> navigate('/login')}>Login</a></p>
-                </form>
-            </div>
-        </>
-    );
+          {errors.tandc && <div className='form_error'>{errors.tandc}</div>}
+
+          <button type='submit' className="btn" name='submit' disabled={Object.keys(errors).length > 0}>Register</button>
+
+          <div className="login-link"></div>
+          <p>Already have an account? <a href='#' onClick={() => navigate('/login')}>Login</a></p>
+        </form>
+      </div>
+    </>
+  );
 }
 
-export default Register
+export default Register;
