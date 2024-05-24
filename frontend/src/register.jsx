@@ -2,6 +2,8 @@ import './css/register.css';
 import logo from './assets/logo.png';
 import Validation from './registerValidation'; // Import validation function
 
+import bcrypt from 'bcryptjs';
+import axios from 'axios';
 import React, { useState } from "react"; // Removed unused useEffect hook
 import { useNavigate } from "react-router-dom";
 
@@ -30,16 +32,28 @@ function Register() {
     });
   };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
     const newErrors = Validation(values); // Call external validation function
     setErrors(newErrors); // Update errors state with returned errors
 
     if (Object.keys(newErrors).length === 0) {
-      // Proceed with form submission logic, e.g., send data to the server
-      console.log('Form submitted successfully');
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(values.password, 10);
+
+        axios.post('http://127.0.0.1:8081/signup', {
+            username: values.username,
+            email: values.email,
+            password: hashedPassword // Send the hashed password
+        })
+        .then(res => {
+            navigate('/');
+        })
+        .catch(err => console.log(err));
+        console.log('Form submitted successfully');
     }
-  };
+};
+
 
   return (
     <>
