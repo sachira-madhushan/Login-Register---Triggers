@@ -43,6 +43,10 @@ function Register(){
                     <input type='password' placeholder='Password' required/>
                         <i className="bx bxs-lock-alt"></i>
                     </div>
+                    <div className="input-box1">
+                    <input type='password' placeholder='Password' required/>
+                        <i className="bx bxs-lock-alt"></i>
+                    </div>
                     <div className="terms">
 
                     <label >
