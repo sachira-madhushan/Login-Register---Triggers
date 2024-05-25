@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import './css/login.css';
 import logo from './assets/logo.png';
+
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
@@ -27,20 +28,38 @@ function Login() {
     // submition handle 
     const handleSubmit = async (event) => {
         event.preventDefault();
+    
         const { email, password } = values;
+        
     
         axios.post('http://127.0.0.1:8081/login', {
              email, 
-             password // Pass the password without hashing
-            })
-            .then(res => {
-                navigate('/');
-                console.log('Login was successful');
-            })
-            .catch(err => {
-                console.log(err);
-            });
+             password
+        })
+        .then(res => {
+            navigate('/');
+            console.log('Login was successful');
+            alert('Login Success');
+        })
+        .catch(err => {
+            console.log(err);
+            let errorMessage = 'Login failed. Please try again.';
+    
+            if (err.response) {
+                
+                errorMessage = err.response.data.error || errorMessage;
+            } else if (err.request) {
+               
+                errorMessage = 'No response received from server. Please check your network connection.';
+            } else {
+                
+                errorMessage = err.message;
+            }
+    
+            alert(errorMessage);
+        });
     };
+    
     
 
     return (

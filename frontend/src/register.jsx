@@ -49,7 +49,24 @@ function Register() {
             navigate('/');
             console.log('Form submitted successfully');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          let errorMessage = 'Signup failed. Please try again.';
+  
+          if (err.response) {
+              
+              errorMessage = err.response.data.message || errorMessage;
+          } else if (err.request) {
+              
+              errorMessage = 'No response received from server. Please check your network connection.';
+          } else {
+              
+              errorMessage = err.message;
+          }
+  
+          alert(errorMessage);
+      });
+    
     }
 };
 
@@ -121,7 +138,7 @@ function Register() {
           <button type='submit' className="btn" name='submit' disabled={Object.keys(errors).length > 0}>Register</button>
 
           <div className="login-link"></div>
-          <p>Already have an account? <a href='#' onClick={() => navigate('/login')}>Login</a></p>
+          <p>Already have an account? <a href='#' onClick={() => navigate('/verification')}>Login</a></p>
         </form>
       </div>
     </>
