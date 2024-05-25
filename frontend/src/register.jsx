@@ -138,7 +138,7 @@ function Register() {
           <button type='submit' className="btn" name='submit' disabled={Object.keys(errors).length > 0}>Register</button>
 
           <div className="login-link"></div>
-          <p>Already have an account? <a href='#' onClick={() => navigate('/login')}>Login</a></p>
+          <p>Already have an account? <a href='#' onClick={() => navigate('/verification')}>Login</a></p>
         </form>
       </div>
     </>
