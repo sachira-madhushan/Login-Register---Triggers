@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import './css/login.css';
+import bcrypt from 'bcryptjs';
 import logo from './assets/logo.png';
 import { useNavigate } from 'react-router-dom';
-import Validation from './loginValidation';
+import axios from 'axios';
 
 function Login() {
     const navigate = useNavigate();
@@ -18,7 +19,6 @@ function Login() {
         const { name, value } = event.target;
         setValues(prev => ({ ...prev, [name]: value }));
 
-        // Clear specific error for the field being modified
         setErrors(prevErrors => {
             const newErrors = { ...prevErrors };
             delete newErrors[name];
@@ -26,15 +26,24 @@ function Login() {
         });
     };
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault();
-        const newErrors = Validation(values); // Call external validation function
-        setErrors(newErrors); // Update errors state with returned errors
+        const { email, password } = values;
 
-        if (Object.keys(newErrors).length === 0) {
-            // Proceed with form submission logic, e.g., send data to the server
-            console.log('Form submitted successfully');
-        }
+        // Hash the password
+        const hashedPassword = await bcrypt.hash(password, 10);
+
+        axios.post('http://127.0.0.1:8081/login', {
+             email, 
+             password: hashedPassword // Pass the hashed password
+            })
+            .then(res => {
+                navigate('/');
+                console.log('Login was successful');
+            })
+            .catch(err => {
+                console.log(err);
+            });
     };
 
     return (

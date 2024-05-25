@@ -48,9 +48,9 @@ function Register() {
         })
         .then(res => {
             navigate('/');
+            console.log('Form submitted successfully');
         })
         .catch(err => console.log(err));
-        console.log('Form submitted successfully');
     }
 };
 
@@ -58,10 +58,14 @@ function Register() {
   return (
     <>
       <header>
-        <nav className="navbar">
-          {/* ... (navigation elements) ... */}
-        </nav>
-      </header>
+                <nav className="navbar">
+                    <span className="hamburger-btn material-symbols-rounded">menu</span>
+                    <a href="#" className="logo" onClick={() => navigate('/')}>
+                        <img src={logo} alt="logo"></img>
+                        <h2><b><span>Travelo</span></b></h2>
+                    </a>
+                </nav>
+            </header>
 
       <div className="wrapper1">
         <form onSubmit={handleSubmit}>
