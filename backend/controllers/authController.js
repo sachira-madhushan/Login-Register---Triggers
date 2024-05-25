@@ -49,6 +49,7 @@ const login = (req, res) => {
         }
 
         const hashedPassword = result[0].password;
+
         bcrypt.compare(password, hashedPassword, (err, isMatch) => {
             if (err) {
                 console.error(err);
@@ -63,6 +64,10 @@ const login = (req, res) => {
         });
     });
 };
+
+const verification = (req, res) => {
+    
+}
 
 module.exports = {
     signup,
