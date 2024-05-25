@@ -58,6 +58,7 @@ app.post('/signup', (req, res) => {
 
 app.use(express.json());
 
+//login
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
 
@@ -70,7 +71,7 @@ app.post('/login', (req, res) => {
 
         if (result.length === 0) {
             // User not found
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Unauthorized: Invalid email or password' });
         }
 
         const storedHashedPassword = result[0].password;
@@ -78,17 +79,15 @@ app.post('/login', (req, res) => {
         // Compare the hashed password
         const isPasswordMatch = await bcrypt.compare(password, storedHashedPassword);
         
-
         if (!isPasswordMatch) {
             // Invalid credentials
-            return res.status(401).json({ error: 'Unauthorized' });
+            return res.status(401).json({ error: 'Unauthorized: Invalid email or password' });
         }
 
         // User authenticated successfully
         return res.status(200).json({ message: 'Login successful' });
     });
 });
-
 
 
 

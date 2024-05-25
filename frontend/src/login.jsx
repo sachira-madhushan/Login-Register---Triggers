@@ -43,7 +43,20 @@ function Login() {
         })
         .catch(err => {
             console.log(err);
-            alert('Login failed, username or password incorrect.');
+            let errorMessage = 'Login failed. Please try again.';
+    
+            if (err.response) {
+                
+                errorMessage = err.response.data.error || errorMessage;
+            } else if (err.request) {
+               
+                errorMessage = 'No response received from server. Please check your network connection.';
+            } else {
+                
+                errorMessage = err.message;
+            }
+    
+            alert(errorMessage);
         });
     };
     
