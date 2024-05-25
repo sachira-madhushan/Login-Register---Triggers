@@ -1,6 +1,8 @@
+const bcrypt = require('bcrypt');
 const express = require('express');
 const mysql = require('mysql');
 const cors = require('cors');
+
 
 const app = express();
 app.use(cors());
@@ -25,8 +27,7 @@ db.connect(err => {
 app.post('/signup', (req, res) => {
     const { username, email, password } = req.body;
 
-    // Check if email already exists
-    const checkEmailQuery = "SELECT * FROM user_details WHERE email = ?";
+    const checkEmailQuery = "SELECT uid FROM un_veri_users WHERE email = ?";
     db.query(checkEmailQuery, [email], (err, result) => {
         if (err) {
             console.error(err);
@@ -35,10 +36,12 @@ app.post('/signup', (req, res) => {
 
         if (result.length > 0) {
             // Email already exists, return error
+
             return res.status(400).json({ message: "Email already exists" });
         } else {
             // Email does not exist, proceed with inserting new user
-            const insertUserQuery = "INSERT INTO user_details (userName, email, password) VALUES (?, ?, ?)";
+
+            const insertUserQuery = "INSERT INTO un_veri_users (userName, email, password) VALUES (?, ?, ?)";
             const values = [username, email, password];
             db.query(insertUserQuery, values, (err, data) => {
                 if (err) {
@@ -51,19 +54,33 @@ app.post('/signup', (req, res) => {
     });
 });
 
-// Login route
+
+
+app.use(express.json());
+
 app.post('/login', (req, res) => {
     const { email, password } = req.body;
-    
-    const checkLoginQuery = 'SELECT  UID FROM user_details WHERE email = ? and password = ?';
-    db.query(checkLoginQuery, [email, password], (err, result) => {
+
+    const getUserQuery = 'SELECT password FROM user_details WHERE email = ?';
+    db.query(getUserQuery, [email], async (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
         }
 
         if (result.length === 0) {
-            // User not found or invalid credentials
+            // User not found
+            return res.status(401).json({ error: 'Unauthorized' });
+        }
+
+        const storedHashedPassword = result[0].password;
+
+        // Compare the hashed password
+        const isPasswordMatch = await bcrypt.compare(password, storedHashedPassword);
+        
+
+        if (!isPasswordMatch) {
+            // Invalid credentials
             return res.status(401).json({ error: 'Unauthorized' });
         }
 
@@ -71,6 +88,7 @@ app.post('/login', (req, res) => {
         return res.status(200).json({ message: 'Login successful' });
     });
 });
+
 
 
 
