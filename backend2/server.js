@@ -52,14 +52,11 @@ app.post('/signup', (req, res) => {
 });
 
 // Login route
-// Login route
 app.post('/login', (req, res) => {
-    const { email, password } = req.body;
+    const { email, hashedPassword } = req.body;
     
-    // Check if the email and password are valid
-    // For example, you can query the database to verify the credentials
     const checkLoginQuery = 'SELECT * FROM user_details WHERE email = ? AND password = ?';
-    db.query(checkLoginQuery, [email, password], (err, result) => {
+    db.query(checkLoginQuery, [email, hashedPassword], (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
@@ -74,6 +71,7 @@ app.post('/login', (req, res) => {
         return res.status(200).json({ message: 'Login successful' });
     });
 });
+
 
 
 

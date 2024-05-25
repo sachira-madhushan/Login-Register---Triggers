@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import './css/login.css';
-import bcrypt from 'bcryptjs';
 import logo from './assets/logo.png';
 import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
@@ -29,13 +28,10 @@ function Login() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { email, password } = values;
-
-        // Hash the password
-        const hashedPassword = await bcrypt.hash(password, 10);
-
+    
         axios.post('http://127.0.0.1:8081/login', {
              email, 
-             password: hashedPassword // Pass the hashed password
+             password // Pass the password without hashing
             })
             .then(res => {
                 navigate('/');
@@ -45,6 +41,7 @@ function Login() {
                 console.log(err);
             });
     };
+    
 
     return (
         <>
