@@ -49,7 +49,24 @@ function Register() {
             navigate('/');
             console.log('Form submitted successfully');
         })
-        .catch(err => console.log(err));
+        .catch(err => {
+          console.log(err);
+          let errorMessage = 'Signup failed. Please try again.';
+  
+          if (err.response) {
+              
+              errorMessage = err.response.data.message || errorMessage;
+          } else if (err.request) {
+              
+              errorMessage = 'No response received from server. Please check your network connection.';
+          } else {
+              
+              errorMessage = err.message;
+          }
+  
+          alert(errorMessage);
+      });
+    
     }
 };
 
