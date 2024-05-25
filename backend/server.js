@@ -53,10 +53,10 @@ app.post('/signup', (req, res) => {
 
 // Login route
 app.post('/login', (req, res) => {
-    const { email, hashedPassword } = req.body;
+    const { email, password } = req.body;
     
-    const checkLoginQuery = 'SELECT * FROM user_details WHERE email = ? AND password = ?';
-    db.query(checkLoginQuery, [email, hashedPassword], (err, result) => {
+    const checkLoginQuery = 'SELECT  UID FROM user_details WHERE email = ? and password = ?';
+    db.query(checkLoginQuery, [email, password], (err, result) => {
         if (err) {
             console.error(err);
             return res.status(500).json({ error: 'Internal Server Error' });
