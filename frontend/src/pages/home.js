@@ -18,8 +18,8 @@ function Home() {
                     </div>
 
                     <div>
-                        <button className='btn1' onClick={()=> navigate('/login')}><h2>Login Here</h2></button>
-                        <button className='btn1' onClick={()=> navigate('/register')}><h2>Register Here</h2></button>
+                        <button className='btn1' onClick={()=> navigate('/login')}>Login Here</button>
+                        <button className='btn1' onClick={()=> navigate('/register')}>Register Here</button>
                     </div>
                 </div>
             </header>
@@ -35,7 +35,7 @@ function Home() {
                             <li>Verify by mail</li>
                             <li>cookies handling</li>
                         </ul>
-                        <button className='btn1' onClick={()=> navigate('/contrib')}><h2>Contributers 😁</h2></button>
+                        <button className='btn1' onClick={()=> navigate('/contrib')}>Contributers 😁</button>
                     </div>
                 </div>
             </div>
