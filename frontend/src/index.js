@@ -5,6 +5,7 @@ import Home from './pages/home';
 import Login from './pages/login';
 import Register from './pages/register';
 import Verify from './pages/pleaseVerify';
+import Contrib from './pages/contrib';
 
 ReactDOM.render(
   <Router>
@@ -13,6 +14,7 @@ ReactDOM.render(
       <Route path="/login" element={<Login />} />
       <Route path="/register" element={<Register />} />
       <Route path="/pleaseVerify" element={<Verify />} />
+      <Route path="/contrib" element={<Contrib />} />
     </Routes>
   </Router>,
   document.getElementById('root')
