@@ -54,9 +54,19 @@ header .logo h2{
 header .logo img{
     width: 50px;    
 }
+
 header h2{
     padding:0 10px;
     color: rgb(96, 96, 96);
+}
+
+.top-button{
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+.top-button p{
+    padding-right: 5px;
 }
 
 .btn1{

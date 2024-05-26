@@ -18,8 +18,8 @@ function Home() {
                     </div>
 
                     <div>
-                        <button className='btn1' onClick={()=> navigate('/login')}>Login Here</button>
-                        <button className='btn1' onClick={()=> navigate('/register')}>Register Here</button>
+                        <button className='btn1' onClick={()=> navigate('/login')}>Login</button>
+                        <button className='btn1' onClick={()=> navigate('/register')}>Register</button>
                     </div>
                 </div>
             </header>
