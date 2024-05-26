@@ -12,7 +12,7 @@ function Home() {
         <>
             <header>
                 <div className='nav_bar'>
-                    <div className="logo">
+                    <div className="logo" onClick={()=> navigate('/')}>
                         <img src={logo} alt="logo" />
                         <h2><span>Sample page</span></h2>
                     </div>
