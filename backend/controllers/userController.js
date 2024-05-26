@@ -2,6 +2,8 @@ import connectDB from '../configs/db.js';
 import bcrypt from 'bcryptjs'
 import sendMail from '../configs/mailer.js'
 
+
+
 const db=connectDB();
 
 
@@ -28,7 +30,7 @@ export const registerUser=async(req,res)=>{
             res.send(err);
         }else{
             //res.send("Register Success!")
-            sendMail(req.body.email,token,res)
+            sendMail(req.body.email,req.body.name,token,res)
         }
         
     })
@@ -92,4 +94,31 @@ export const verifyUser=(req,res)=>{
         }
     })
 
+}
+
+//@des check the verification - is user verified his/her email or not
+//@route api/user/check
+//@access public
+export const checkVerification=async(req,res)=>{
+    const {email,password}=req.body;
+    const query="SELECT * FROM user WHERE Email=?"
+    db.query(query,[email],async(err,data)=>{
+        if(err){
+            res.send(err);
+            
+        }else{
+            if(data.length>0){
+                if(await bcrypt.compare(password,data[0].Password)){
+                    res.send("Login success!")
+                }else{
+                    res.send("Email Or Password Incorrect!")
+                }
+                
+            }else{
+                res.send("Email Or Password Incorrect!")
+            }
+            
+        }
+        
+    })
 }
