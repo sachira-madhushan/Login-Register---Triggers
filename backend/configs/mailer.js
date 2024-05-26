@@ -13,4 +13,12 @@ const sendVerificationMail =(to,token)=>{
             pass:process.env.MAIL_PASSWORD
         }
     })
+
+    const mailOptions={
+        from:process.env.SMTP_MAIL,
+        to:to,
+        subject:"Triggers Assignment - Verfication Email",
+        text:"Mail",
+    }
 }
+
