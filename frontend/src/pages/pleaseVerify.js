@@ -2,10 +2,10 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../asset/logo.png';
 import '../css/all.css'
-import '../css/form.css'
+import '../css/verify.css'
 
 
-function Home() {
+function Verify() {
     const navigate = useNavigate();
 
     return (
@@ -18,29 +18,55 @@ function Home() {
                     </div>
 
                     <div className='top-button'>
-                        <p>I don't have an accout</p>
-                        <button className='btn1' onClick={()=> navigate('/register')}>Register</button>
-                        {/* <p>I already have an accout</p>
-                        <button className='btn1' onClick={()=> navigate('/login')}>Login</button> */}
+                        {/* <p>I don't have an accout</p>
+                        <button className='btn1' onClick={()=> navigate('/register')}>Register</button> */}
+                        <p>I already have an accout</p>
+                        <button className='btn1' onClick={()=> navigate('/login')}>Login</button>
                     </div>
                 </div>
             </header>
-            <div className='form'>
-                <div className='title'>
-                    <h2>Login</h2>
+            <div className='verify'>
+                <div className='box'>
+                    <div className='title'>
+                        <h2>Please Verify Your Email.</h2>
+                    </div>
+                    <div className='sub-heading'>
+                        <h2>Verification Email Has Sent...</h2>    
+                    </div>
+                    
+                    <div
+                        style={{
+                            display:'flex',
+                            justifyContent:'center',
+                            color: "rgb(96, 96, 96)"
+                        }}
+                    >
+                        <p>Email not recieved?</p> 
+                        <button 
+                            type="button"
+                            onClick={() => {
+                                // Handle the terms and conditions click
+                                alert("Resent the email");
+                            }}
+                            style={{
+                                background: "none",
+                                color: "blue",
+                                border: "none",
+                                padding: "0 0 0 5px",
+                                cursor: "pointer",
+                                textDecoration: "underline",
+                                fontSize: "inherit",
+                                
+                                
+                            }}
+                        >
+                            Resend Email
+                        </button>                    
+                    </div>           
                 </div>
-                <form>                    
-                    <input placeholder='Enter username or email'></input>                    
-                    <input placeholder='Enter password'></input>                    
-                    <div>
-                        <input type='checkbox' ></input>
-                        <label>Remember me</label>
-                    </div>                    
-                    <button>login</button>
-                </form>                
             </div>
         </>
     );
 }
 
-export default Home;
+export default Verify;
