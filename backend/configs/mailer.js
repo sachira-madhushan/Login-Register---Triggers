@@ -3,8 +3,8 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const sendVerificationMail =(to,token)=>{
-    const transfort=nodemailer.createTransport({
+const sendVerificationMail =(to,token,res)=>{
+    const transport=nodemailer.createTransport({
         service:process.env.SMTP_SERVER,
         port:465,
         secure:true,
@@ -18,7 +18,17 @@ const sendVerificationMail =(to,token)=>{
         from:process.env.SMTP_MAIL,
         to:to,
         subject:"Triggers Assignment - Verfication Email",
-        text:"Mail",
+        text:token,
     }
+
+    transport.sendMail(mailOptions,(err,info)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send("Mail was sent successfuly!")
+        }
+    })
+
 }
 
+export default sendVerificationMail

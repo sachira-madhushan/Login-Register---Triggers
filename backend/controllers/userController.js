@@ -1,5 +1,6 @@
 import connectDB from '../configs/db.js';
 import bcrypt from 'bcryptjs'
+import sendMail from '../configs/mailer.js'
 
 const db=connectDB();
 
@@ -26,7 +27,8 @@ export const registerUser=async(req,res)=>{
         if(err){
             res.send(err);
         }else{
-            res.send("Register Success!")
+            //res.send("Register Success!")
+            sendMail("sacheeramadushan455@gmail.com","abcd",res)
         }
         
     })
