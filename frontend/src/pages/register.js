@@ -57,7 +57,8 @@ function Register() {
                             Terms & Conditions
                         </button>
                     </div>                    
-                    <button>Sign in</button>
+                    <button onClick={()=> navigate('/pleaseVerify')} >Sign in</button>
+                    
                 </form>                
             </div>
         </>
