@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 
 dotenv.config();
 
-const sendVerificationMail = async (to,token,res)=>{
+const sendVerificationMail =(to,token,res)=>{
     const transport=nodemailer.createTransport({
         service:process.env.SMTP_SERVER,
         port:465,
@@ -12,21 +12,23 @@ const sendVerificationMail = async (to,token,res)=>{
             user:process.env.SMTP_MAIL,
             pass:process.env.MAIL_PASSWORD
         }
-    });
+    })
 
     const mailOptions={
         from:process.env.SMTP_MAIL,
         to:to,
         subject:"Triggers Assignment - Verfication Email",
         text:token,
-    };
-
-    try {
-        await transport.sendMail(mailOptions);
-        res.send("Mail was sent successfully!");
-    } catch (err) {
-        res.status(500).send("Error sending email: " + err.message);
     }
-};
+
+    transport.sendMail(mailOptions,(err,info)=>{
+        if(err){
+            res.send(err)
+        }else{
+            res.send("Mail was sent successfuly!")
+        }
+    })
+
+}
 
 export default sendVerificationMail
