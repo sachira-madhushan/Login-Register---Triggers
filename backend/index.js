@@ -1,5 +1,5 @@
 import express from 'express'
-import mysql from 'mysql'
+// import mysql from 'mysql'
 import cors from 'cors'
 import userRoutes from './routes/userRoutes.js'
 
@@ -11,6 +11,6 @@ app.use("/api/user",userRoutes)
 
 
 
-app.listen(8081,()=>{
+app.listen(5000,()=>{
     console.log("Server is listening...")
 })
