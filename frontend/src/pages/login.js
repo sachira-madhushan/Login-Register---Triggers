@@ -1,27 +1,65 @@
-import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import logo from '../asset/logo.png';
-import '../css/all.css'
-import '../css/form.css'
+import '../css/all.css';
+import '../css/form.css';
 
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import Validation from './loginValidation';
 
 function Login() {
     const navigate = useNavigate();
+
+    const [values, setValues] = useState({
+        email: '',
+        password: ''
+    });
+
+    const [errors, setErrors] = useState({});
+
+    const handleInput = (event) => {
+        const { name, value } = event.target;
+        setValues(prev => ({ ...prev, [name]: value }));
+
+        setErrors(prevErrors => {
+            const newErrors = { ...prevErrors };
+            delete newErrors[name];
+            return newErrors;
+        });
+    };
+
+    const handleSubmit = (event) => {
+        event.preventDefault();
+        const validationErrors = Validation(values);
+        setErrors(validationErrors);
+
+        if (Object.keys(validationErrors).length === 0) {
+            // If no validation errors, proceed with form submission
+            // Example: Perform login API call using axios
+            axios.post('/login', values)
+                .then(response => {
+                    // Handle successful login
+                    navigate('/pleaseVerify');
+                })
+                .catch(error => {
+                    // Handle login error
+                    console.error('Login error:', error);
+                });
+        }
+    };
 
     return (
         <>
             <header>
                 <div className='nav_bar'>
-                    <div className="logo" onClick={()=> navigate('/')}>
+                    <div className="logo" onClick={() => navigate('/')}>
                         <img src={logo} alt="logo" />
                         <h2><span>Sample page</span></h2>
                     </div>
 
                     <div className='top-button'>
-                        <p>I don't have an accout</p>
-                        <button className='btn1' onClick={()=> navigate('/register')}>Register</button>
-                        {/* <p>I already have an accout</p>
-                        <button className='btn1' onClick={()=> navigate('/login')}>Login</button> */}
+                        <p>I don't have an account</p>
+                        <button className='btn1' onClick={() => navigate('/register')}>Register</button>
                     </div>
                 </div>
             </header>
@@ -29,15 +67,31 @@ function Login() {
                 <div className='title'>
                     <h2>Login</h2>
                 </div>
-                <form>                    
-                    <input placeholder='Enter username or email'></input>                    
-                    <input placeholder='Enter password'></input>                    
+                <form onSubmit={handleSubmit}>
+                    <div className='input'>
+                        <input
+                            placeholder='Enter username or email'
+                            onChange={handleInput}
+                            name='email'
+                        />
+                        {errors.email && <span className='form_error'>{errors.email}</span>}
+                    </div>
+                    <div className='input'>
+                        <input
+                            placeholder='Enter password'
+                            onChange={handleInput}
+                            name='password'
+                        />
+                        {errors.password && <span className='form_error'>{errors.password}</span>}
+                    </div>
+
                     <div>
-                        <input type='checkbox' ></input>
+                        <input type='checkbox'></input>
                         <label>Remember me</label>
-                    </div>                    
-                    <button onClick={()=> navigate('/pleaseVerify')}>login</button>
-                </form>                
+                    </div>
+
+                    <button type='submit'>Login</button>
+                </form>
             </div>
         </>
     );
