@@ -45,6 +45,7 @@ header .logo{
     align-items: center;
     padding: 10px;
     justify-content: start;
+    cursor: pointer;
 }
 header .logo h2{
     font-size: 35px;
