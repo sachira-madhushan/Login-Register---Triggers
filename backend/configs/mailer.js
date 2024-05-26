@@ -5,7 +5,7 @@ dotenv.config();
 
 const sendVerificationMail =(to,token,res)=>{
     const transport=nodemailer.createTransport({
-        service:process.env.SMTP_SERVER,
+        host:process.env.SMTP_SERVER,
         port:465,
         secure:true,
         auth:{
@@ -18,14 +18,14 @@ const sendVerificationMail =(to,token,res)=>{
         from:process.env.SMTP_MAIL,
         to:to,
         subject:"Triggers Assignment - Verfication Email",
-        text:token,
+        text:"http://localhost:5000/api/user/verify/?token="+token,
     }
 
     transport.sendMail(mailOptions,(err,info)=>{
         if(err){
-            res.send(err)
+            res.send(err+info)
         }else{
-            res.send("Mail was sent successfuly!")
+            res.send("Register Success!.Mail was sent successfuly!")
         }
     })
 

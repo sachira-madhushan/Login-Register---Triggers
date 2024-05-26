@@ -28,7 +28,7 @@ export const registerUser=async(req,res)=>{
             res.send(err);
         }else{
             //res.send("Register Success!")
-            sendMail("sacheeramadushan455@gmail.com","abcd",res)
+            sendMail(req.body.email,token,res)
         }
         
     })
@@ -77,7 +77,14 @@ export const verifyUser=(req,res)=>{
             res.send(err);
         }else{
             if(data.length>0){
-                res.send("Verified!")
+                const verifyQuery="INSERT INTO verifiedusers(UserID) VALUES(?)"
+                db.query(verifyQuery,[data[0].UserID],async(err,data)=>{
+                    if(err){
+                        res.send("Invalied link!")
+                    }else{
+                        res.send("Verified!")
+                    }
+                })
             }else{
                 res.send("Invalied link!")
             }
