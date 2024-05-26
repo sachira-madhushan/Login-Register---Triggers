@@ -17,9 +17,11 @@ function Home() {
                         <h2><span>Sample page</span></h2>
                     </div>
 
-                    <div>
-                        {/* <button className='btn1' onClick={()=> navigate('/login')}><h2>Login Here</h2></button> */}
-                        <button className='btn1' onClick={()=> navigate('/register')}>Register Here</button>
+                    <div className='top-button'>
+                        <p>I don't have an accout</p>
+                        <button className='btn1' onClick={()=> navigate('/register')}>Register</button>
+                        {/* <p>I already have an accout</p>
+                        <button className='btn1' onClick={()=> navigate('/login')}>Login</button> */}
                     </div>
                 </div>
             </header>
@@ -28,8 +30,8 @@ function Home() {
                     <h2>Login</h2>
                 </div>
                 <form>                    
-                    <input placeholder='username or email'></input>                    
-                    <input placeholder='username or password'></input>                    
+                    <input placeholder='Enter username or email'></input>                    
+                    <input placeholder='Enter password'></input>                    
                     <div>
                         <input type='checkbox' ></input>
                         <label>Remember me</label>
