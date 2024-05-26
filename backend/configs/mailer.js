@@ -1,11 +1,13 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv'
+import hbs from 'nodemailer-express-handlebars';
+import path from 'path'
 
 dotenv.config();
 
-const sendVerificationMail =(to,token,res)=>{
+const sendVerificationMail =(to,name,token,res)=>{
     const transport=nodemailer.createTransport({
-        service:process.env.SMTP_SERVER,
+        host:process.env.SMTP_SERVER,
         port:465,
         secure:true,
         auth:{
@@ -18,14 +20,29 @@ const sendVerificationMail =(to,token,res)=>{
         from:process.env.SMTP_MAIL,
         to:to,
         subject:"Triggers Assignment - Verfication Email",
-        text:token,
+        template: 'verifyEmail',
+        context: {
+            name:name,
+            token:token,
+        },
     }
+
+    const handlebarOptions = {
+        viewEngine: {
+          partialsDir: path.resolve('../backend/models/'),
+          defaultLayout: false,
+        },
+        viewPath: path.resolve('../backend/models/'),
+        extName: '.html',
+      };
+
+    transport.use('compile', hbs(handlebarOptions));
 
     transport.sendMail(mailOptions,(err,info)=>{
         if(err){
-            res.send(err)
+            res.send(err+info)
         }else{
-            res.send("Mail was sent successfuly!")
+            res.send("Register Success!.Mail was sent successfuly!")
         }
     })
 
