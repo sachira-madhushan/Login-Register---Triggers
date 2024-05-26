@@ -100,19 +100,21 @@ export const verifyUser=(req,res)=>{
 //@route api/user/check
 //@access public
 export const checkVerification=async(req,res)=>{
-    const {email,password}=req.body;
+    const {email}=req.body;
     const query="SELECT * FROM user WHERE Email=?"
     db.query(query,[email],async(err,data)=>{
         if(err){
             res.send(err);
-            
         }else{
             if(data.length>0){
-                if(await bcrypt.compare(password,data[0].Password)){
-                    res.send("Login success!")
-                }else{
-                    res.send("Email Or Password Incorrect!")
-                }
+                const query="SELECT * FROM user WHERE Email=? AND Token='Verified'"
+                db.query(query,[email],async(err,data)=>{
+                    if(data.length>0){
+                        res.send("Login success!Verified")
+                    }else{
+                        res.send("Login success!Not Verified")
+                    }
+                })
                 
             }else{
                 res.send("Email Or Password Incorrect!")
