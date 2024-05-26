@@ -36,7 +36,7 @@ function Login() {
                         <input type='checkbox' ></input>
                         <label>Remember me</label>
                     </div>                    
-                    <button>login</button>
+                    <button onClick={()=> navigate('/pleaseVerify')}>login</button>
                 </form>                
             </div>
         </>
