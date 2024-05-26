@@ -1,6 +1,9 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../asset/logo.png';
+import '../css/all.css'
+import '../css/home.css'
+
 
 function Home() {
     const navigate = useNavigate();
@@ -8,27 +11,33 @@ function Home() {
     return (
         <>
             <header>
-                <nav className="navbar">
+                <div className='nav_bar'>
                     <div className="logo">
                         <img src={logo} alt="logo" />
-                        <h2><b><span>Sample page</span></b></h2>
+                        <h2><span>Sample page</span></h2>
                     </div>
-                
-                </nav>
+
+                    <div>
+                        <button className='btn1' onClick={()=> navigate('/login')}><h2>Login Here</h2></button>
+                        <button className='btn1' onClick={()=> navigate('/register')}><h2>Register Here</h2></button>
+                    </div>
+                </div>
             </header>
-            <div>
-                <h3>This is a sample Page for</h3>
-                <ul>
-                    <li>Assignment 3 demonstration of:</li>
-                    <li>React Frontend</li>
-                    <li>MySQL Backend</li>
-                    <li>Triggers</li>
-                    <li>Verify by mail</li>
-                </ul>
-            </div>
-            <div>
-                <button className='login-btn' onClick={()=> navigate('/login')}><h2>Login Here</h2></button>
-                <button className='login-btn' onClick={()=> navigate('/register')}><h2>Reginter Here</h2></button>
+            <div className='info'>
+                <div className='list'>
+                    <h3>😊<br></br> This is a sample Page</h3>
+                    <div className='list2'>                        
+                        <h4>Assignment 3 demonstration of:</h4>
+                        <ul>
+                            <li>React Frontend</li>
+                            <li>MySQL Backend</li>
+                            <li>Triggers</li>
+                            <li>Verify by mail</li>
+                            <li>cookies handling</li>
+                        </ul>
+                        <button className='btn1' onClick={()=> navigate('/contrib')}><h2>Contributers 😁</h2></button>
+                    </div>
+                </div>
             </div>
         </>
     );
