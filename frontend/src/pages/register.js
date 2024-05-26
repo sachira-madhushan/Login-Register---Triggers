@@ -36,7 +36,7 @@ function Register() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            axios.post('http:localhost:8081/register', {
+            axios.post('http://localhost:8081/api/user/register', {
                 name: values.username,
                 email: values.email,
                 password: values.password
