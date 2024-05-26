@@ -5,7 +5,7 @@ import '../css/all.css'
 import '../css/form.css'
 
 
-function Login() {
+function Home() {
     const navigate = useNavigate();
 
     return (
@@ -43,4 +43,4 @@ function Login() {
     );
 }
 
-export default Login;
+export default Home;
