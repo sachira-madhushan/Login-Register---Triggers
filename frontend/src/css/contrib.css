@@ -1,0 +1,66 @@
+html, body {
+    height: 100%;
+}
+
+body {
+    flex-direction: column;
+    align-items: center; 
+}
+
+header{
+    height: var(--nav-height);
+    position: fixed; 
+    width: 100%; 
+}
+
+/* Section styles */
+.space {
+    width: 80vw;
+    margin: 35px auto 2rem auto; 
+}
+
+.space .wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+    background-color: #fff;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.space .wrapper .member-card {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 1rem;
+    width: 200px;
+    text-align: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    transition: transform 0.2s, box-shadow 0.2s;
+    cursor: pointer;
+}
+
+.space .wrapper .member-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.2);
+}
+
+.space .wrapper .member-card img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 1rem;
+}
+
+.space .wrapper .member-card h2 {
+    font-size: 1.25rem;
+    color: #343a40;
+    margin-bottom: 0.5rem;
+}
+
+.space .wrapper .member-card p {
+    font-size: 1rem;
+    color: #6c757d;
+}
