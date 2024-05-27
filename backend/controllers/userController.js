@@ -2,8 +2,6 @@ import connectDB from '../configs/db.js';
 import bcrypt from 'bcryptjs'
 import sendMail from '../configs/mailer.js'
 
-
-
 const db=connectDB();
 
 
@@ -100,7 +98,7 @@ export const verifyUser=(req,res)=>{
 //@route api/user/check
 //@access public
 export const checkVerification=async(req,res)=>{
-    const {email}=req.cookie;
+    const {email}=req.cookies.email;
     const query="SELECT * FROM user WHERE Email=?"
     db.query(query,[email],async(err,data)=>{
         if(err){
@@ -130,17 +128,15 @@ export const checkVerification=async(req,res)=>{
 //@route api/user/varificationmail
 //@access public
 export const varificationmail=async(req,res)=>{
-    const values=[
-        req.cookie.email,
-    ]
 
     const query="SELECT * FROM user WHERE Email=?"
-    db.query(query,[values],(err,data)=>{
+    db.query(query,[req.cookies.email],(err,data)=>{
         if(err){
             res.send(err);
         }else{
             //res.send("Register Success!")
-            sendMail(req.body.email,data[0].Email,data[0].Token,res)
+            console.log(req.cookies.email);
+            sendMail(req.cookies.email,data[0].Name,data[0].Token,res)
         }
         
     })
