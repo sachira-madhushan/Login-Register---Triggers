@@ -6,13 +6,15 @@ import '../css/form.css';
 import GetCookie from './getCookie'; // Import the getCookie function
 import axios from 'axios';
 import Validation from './loginValidation';
+import setCookie from './setCookie'; // Import the setCookie function
 
 function Login() {
     const navigate = useNavigate();
 
     const [values, setValues] = useState({
         email: '',
-        password: ''
+        password: '',
+        rememberMe: false
     });
 
     const [errors, setErrors] = useState({});
@@ -22,7 +24,11 @@ function Login() {
         if (storedEmail) {
             setValues(prevValues => ({ ...prevValues, email: storedEmail }));
         }
-    }, []);
+        const isLoggedIn = GetCookie('loggedIn'); // Check if the user is logged in from the cookie
+        if (isLoggedIn === 'true') {
+            navigate('/loggedIn');
+        }
+    }, [navigate]);
 
     const handleInput = (event) => {
         const { name, value } = event.target;
@@ -44,6 +50,9 @@ function Login() {
             axios.post('http://localhost:8081/api/user/check', { email: values.email })
                 .then(response => {
                     if (response.data.verified) {
+                        if (values.rememberMe) {
+                            setCookie('loggedIn', 'true'); // Set 'loggedIn' cookie if Remember me is checked
+                        }
                         navigate('/loggedIn');
                     } else {
                         navigate('/pleaseVerify');
@@ -57,9 +66,7 @@ function Login() {
     };
 
     const handleRememberMe = (event) => {
-        if (event.target.checked) {
-            navigate('/loggedIn');
-        }
+        setValues(prevValues => ({ ...prevValues, rememberMe: event.target.checked }));
     };
 
     return (
