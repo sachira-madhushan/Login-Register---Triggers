@@ -8,6 +8,23 @@ import '../css/verify.css'
 function Verify() {
     const navigate = useNavigate();
 
+    useEffect(() => {
+        
+        const email = getCookie('email');
+
+        axios.get(`http://localhost:8081/api/user/verify/${email}`)
+            .then(res => {
+                if (res.data.verified) {
+                    navigate('/');
+                }
+            })
+            .catch(err => {
+                console.log(err);
+                
+            });
+    }, []); 
+
+
     return (
         <>
             <header>
