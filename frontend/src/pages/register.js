@@ -100,6 +100,7 @@ function Register() {
                     </div>
                     <div className='input'>
                         <input
+                            type='password'
                             placeholder='Enter password'
                             name='password'
                             value={values.password}
@@ -109,6 +110,7 @@ function Register() {
                     </div>
                     <div className='input'>
                         <input
+                            type='password'
                             placeholder='Confirm password'
                             name='passwordRe'
                             value={values.passwordRe}
