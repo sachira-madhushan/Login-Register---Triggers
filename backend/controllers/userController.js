@@ -100,7 +100,7 @@ export const verifyUser=(req,res)=>{
 //@route api/user/check
 //@access public
 export const checkVerification=async(req,res)=>{
-    const {email}=req.body;
+    const {email}=req.cookie;
     const query="SELECT * FROM user WHERE Email=?"
     db.query(query,[email],async(err,data)=>{
         if(err){
@@ -120,6 +120,27 @@ export const checkVerification=async(req,res)=>{
                 res.send("Email Or Password Incorrect!")
             }
             
+        }
+        
+    })
+}
+
+
+//@des resend verfication mail
+//@route api/user/varificationmail
+//@access public
+export const varificationmail=async(req,res)=>{
+    const values=[
+        req.cookie.email,
+    ]
+
+    const query="SELECT * FROM user WHERE Email=?"
+    db.query(query,[values],(err,data)=>{
+        if(err){
+            res.send(err);
+        }else{
+            //res.send("Register Success!")
+            sendMail(req.body.email,data[0].Email,data[0].Token,res)
         }
         
     })
