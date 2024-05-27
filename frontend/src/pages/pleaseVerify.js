@@ -27,14 +27,6 @@ function Verify() {
     const handleResendEmail = () => {
 
         axios.post(`http://localhost:8081/api/user/sendverificationmail`)
-            .then(res => {
-                if (res.data.verified) {
-                    setIsVerified(true); // Set state to indicate verification success
-                }
-            })
-            .catch(err => {
-                console.error('Error verifying email:', err);
-            });
         alert("Resent the email"); // Placeholder for actual logic
     };
 
