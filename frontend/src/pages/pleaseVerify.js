@@ -26,7 +26,8 @@ function Verify() {
 
     const handleResendEmail = () => {
         const email = GetCookie('email');
-        axios.get(`http://localhost:8081/api/user/verify/${email}`)
+
+        axios.get(`http://localhost:8081/api/user/sendverificationmail/${email}`)
             .then(res => {
                 if (res.data.verified) {
                     setIsVerified(true); // Set state to indicate verification success
