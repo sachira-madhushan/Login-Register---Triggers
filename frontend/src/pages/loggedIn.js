@@ -44,7 +44,7 @@ function LoggedIn() {
                         <h2>😁<br></br>Wellcome To The Club.</h2>
                     </div>
                     <div className='sub-heading'>
-                        <h2>You are Logged In.</h2>    
+                        <h2>You are Successfully Verified.</h2>    
                     </div>
                           
                 </div>
