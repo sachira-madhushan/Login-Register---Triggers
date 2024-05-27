@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import logo from '../asset/logo.png';
 import '../css/all.css';
 import '../css/form.css';
-import { getCookie } from './getCookie';
+import GetCookie from './getCookie'; // Import the getCookie function
 import axios from 'axios';
 import Validation from './loginValidation';
 
@@ -18,7 +18,7 @@ function Login() {
     const [errors, setErrors] = useState({});
 
     useEffect(() => {
-        const storedEmail = getCookie('email');
+        const storedEmail = GetCookie('email'); // Retrieve email cookie when component mounts
         if (storedEmail) {
             setValues(prevValues => ({ ...prevValues, email: storedEmail }));
         }
