@@ -25,7 +25,16 @@ function Verify() {
     }, []);
 
     const handleResendEmail = () => {
-        // Implement logic to resend verification email
+        const email = GetCookie('email');
+        axios.get(`http://localhost:8081/api/user/verify/${email}`)
+            .then(res => {
+                if (res.data.verified) {
+                    setIsVerified(true); // Set state to indicate verification success
+                }
+            })
+            .catch(err => {
+                console.error('Error verifying email:', err);
+            });
         alert("Resent the email"); // Placeholder for actual logic
     };
 
