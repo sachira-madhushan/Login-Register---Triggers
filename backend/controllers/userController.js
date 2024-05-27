@@ -128,7 +128,6 @@ export const checkVerification=async(req,res)=>{
 //@route api/user/varificationmail
 //@access public
 export const varificationmail=async(req,res)=>{
-
     const query="SELECT * FROM user WHERE Email=?"
     db.query(query,[req.cookies.email],(err,data)=>{
         if(err){
@@ -140,4 +139,8 @@ export const varificationmail=async(req,res)=>{
         }
         
     })
+}
+
+export default redirecttomain=()=>{
+    res.redirect('http://localhost:3000/loged'); 
 }

@@ -7,5 +7,6 @@ router.post("/login",loginUser)
 router.get("/verify",verifyUser)
 router.post("/sendverificationmail",varificationmail)
 router.get("/check",checkVerification)
+router.get("/redirect",redirecttomain)
 
 export default router
