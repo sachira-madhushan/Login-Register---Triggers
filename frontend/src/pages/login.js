@@ -78,6 +78,7 @@ function Login() {
                     </div>
                     <div className='input'>
                         <input
+                            type='password'
                             placeholder='Enter password'
                             onChange={handleInput}
                             name='password'
