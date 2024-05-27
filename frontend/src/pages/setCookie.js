@@ -6,7 +6,7 @@ const setCookie = (name, usrin) => {
 
     Cookie.set(name, usrin, {
         expires: expirationDate,
-        secure: true,
+        secure: false,
         sameSite: 'strict',
         path: '/'
     });
