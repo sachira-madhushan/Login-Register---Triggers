@@ -5,15 +5,31 @@ import '../css/all.css';
 import '../css/verify.css';
 import GetCookie from './getCookie'; // Import the GetCookie function
 import axios from 'axios'; // Import axios
+const { CookieJar } = require('tough-cookie');
+const axiosCookieJarSupport = require('axios-cookiejar-support');
+
+const cookieJar = new CookieJar();
+axiosCookieJarSupport(axios);
 
 function Verify() {
+    
+    
     const navigate = useNavigate();
     const [isVerified, setIsVerified] = useState(false);
 
     useEffect(() => {
         const email = GetCookie('email');
+        const cookie = 'cookieName='+email;
 
-        axios.get(`http://localhost:8081/api/user/verify/${email}`)
+        axios.post(`http://localhost:8081/api/user/check/`,
+            {
+                jar: cookieJar,
+                withCredentials: true,
+                headers: {
+                    'Cookie': cookie 
+                }
+            }
+        )
             .then(res => {
                 if (res.data.verified) {
                     setIsVerified(true); // Set state to indicate verification success
@@ -25,8 +41,16 @@ function Verify() {
     }, []);
 
     const handleResendEmail = () => {
+        const email = GetCookie('email');
+        const cookie = 'cookieName='+email;
 
-        axios.post(`http://localhost:8081/api/user/sendverificationmail`)
+        axios.post(`http://localhost:8081/api/user/sendverificationmail`,{
+                jar: cookieJar,
+                withCredentials: true,
+                headers: {
+                    'Cookie': cookie 
+                }
+        })
         alert("Resent the email"); // Placeholder for actual logic
     };
 
