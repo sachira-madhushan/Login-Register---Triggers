@@ -110,9 +110,9 @@ export const checkVerification=async(req,res)=>{
                 const query="SELECT * FROM user WHERE Email=? AND Token='Verified'"
                 db.query(query,[email],async(err,data)=>{
                     if(data.length>0){
-                        res.send("Login success!Verified")
+                        res.send("Verified")
                     }else{
-                        res.send("Login success!Not Verified")
+                        res.send("Not Verified")
                     }
                 })
                 
