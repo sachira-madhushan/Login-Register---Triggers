@@ -82,7 +82,7 @@ export const verifyUser=(req,res)=>{
                     if(err){
                         res.send("Invalied link!")
                     }else{
-                        res.send("Verified!")
+                        res.redirect('http://localhost:3000/loged')
                     }
                 })
             }else{
@@ -139,8 +139,4 @@ export const varificationmail=async(req,res)=>{
         }
         
     })
-}
-
-export default redirecttomain=()=>{
-    res.redirect('http://localhost:3000/loged'); 
 }
