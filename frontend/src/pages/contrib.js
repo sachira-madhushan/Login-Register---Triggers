@@ -8,7 +8,7 @@ import pasinduImg from '../asset/pasindu.jpg';
 import sheharaImg from '../asset/shehara.jpg';
 import viduraImg from '../asset/vidura.jpg';
 import iroshanImg from '../asset/iroshan.jpg';
-import darshanaImg from '../asset/darshana.jpg';
+import darshanaImg from '../asset/Ishara.jpg';
 import naveenImg from '../asset/naveen.jpg';
 
 import { useNavigate } from 'react-router-dom';
@@ -62,7 +62,7 @@ function Contrib() {
                     </div>
                     <div className="member-card" onClick={() => navigate('/')}>
                         <img src={darshanaImg} alt=''></img>
-                        <h2>Darshana Dissanayaka</h2>
+                        <h2>Ishara Nadeeshan</h2>
                         <p>Team Member</p>
                     </div>
                     <div className="member-card" onClick={() => navigate('/')}>
