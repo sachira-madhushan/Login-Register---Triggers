@@ -1,10 +1,10 @@
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import logo from '../asset/logo.png';
 import '../css/all.css';
 import '../css/form.css';
-
+import { getCookie } from './getCookie';
 import axios from 'axios';
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import Validation from './loginValidation';
 
 function Login() {
@@ -16,6 +16,13 @@ function Login() {
     });
 
     const [errors, setErrors] = useState({});
+
+    useEffect(() => {
+        const storedEmail = getCookie('email');
+        if (storedEmail) {
+            setValues(prevValues => ({ ...prevValues, email: storedEmail }));
+        }
+    }, []);
 
     const handleInput = (event) => {
         const { name, value } = event.target;
@@ -34,17 +41,24 @@ function Login() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            // If no validation errors, proceed with form submission
-            // Example: Perform login API call using axios
-            axios.post('/login', values)
+            axios.post('http://localhost:8081/api/user/check', { email: values.email })
                 .then(response => {
-                    // Handle successful login
-                    navigate('/pleaseVerify');
+                    if (response.data.verified) {
+                        navigate('/loggedIn');
+                    } else {
+                        navigate('/pleaseVerify');
+                    }
                 })
                 .catch(error => {
-                    // Handle login error
-                    console.error('Login error:', error);
+                    console.error('Error checking user verification:', error);
+                    navigate('/pleaseVerify');
                 });
+        }
+    };
+
+    const handleRememberMe = (event) => {
+        if (event.target.checked) {
+            navigate('/loggedIn');
         }
     };
 
@@ -56,7 +70,6 @@ function Login() {
                         <img src={logo} alt="logo" />
                         <h2><span>Sample page</span></h2>
                     </div>
-
                     <div className='top-button'>
                         <p>I don't have an account</p>
                         <button className='btn1' onClick={() => navigate('/register')}>Register</button>
@@ -73,6 +86,7 @@ function Login() {
                             placeholder='Enter username or email'
                             onChange={handleInput}
                             name='email'
+                            value={values.email}
                         />
                         {errors.email && <span className='form_error'>{errors.email}</span>}
                     </div>
@@ -82,15 +96,17 @@ function Login() {
                             placeholder='Enter password'
                             onChange={handleInput}
                             name='password'
+                            value={values.password}
                         />
                         {errors.password && <span className='form_error'>{errors.password}</span>}
                     </div>
-
                     <div>
-                        <input type='checkbox'></input>
+                        <input
+                            type='checkbox'
+                            onChange={handleRememberMe}
+                        />
                         <label>Remember me</label>
                     </div>
-
                     <button type='submit'>Login</button>
                 </form>
             </div>
