@@ -100,7 +100,7 @@ export const verifyUser=(req,res)=>{
 //@route api/user/check
 //@access public
 export const checkVerification=async(req,res)=>{
-    const {email}=req.body;
+    const {email}=req.cookie;
     const query="SELECT * FROM user WHERE Email=?"
     db.query(query,[email],async(err,data)=>{
         if(err){
@@ -131,7 +131,7 @@ export const checkVerification=async(req,res)=>{
 //@access public
 export const varificationmail=async(req,res)=>{
     const values=[
-        req.body.email,
+        req.cookie.email,
     ]
 
     const query="SELECT * FROM user WHERE Email=?"
