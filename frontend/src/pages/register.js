@@ -1,33 +1,32 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
 import logo from '../asset/logo.png';
 import '../css/all.css';
 import '../css/form.css';
-import { getCookie } from './getCookie';
-import axios from 'axios';
-import Validation from './loginValidation';
+import Validation from './registerValidation';
+import setCookie from './setCookie';
 
-function Login() {
+import axios from 'axios';
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+
+function Register() {
+
+    
+
     const navigate = useNavigate();
 
     const [values, setValues] = useState({
+        username: '',
         email: '',
-        password: ''
+        password: '',
+        passwordRe: '',
+        tandc: false,
     });
 
     const [errors, setErrors] = useState({});
 
-    useEffect(() => {
-        const storedEmail = getCookie('email');
-        if (storedEmail) {
-            setValues(prevValues => ({ ...prevValues, email: storedEmail }));
-        }
-    }, []);
-
     const handleInput = (event) => {
-        const { name, value } = event.target;
-        setValues(prev => ({ ...prev, [name]: value }));
-
+        const { name, value, type, checked } = event.target;
+        setValues(prev => ({ ...prev, [name]: type === 'checkbox' ? checked : value }));
         setErrors(prevErrors => {
             const newErrors = { ...prevErrors };
             delete newErrors[name];
@@ -41,24 +40,31 @@ function Login() {
         setErrors(validationErrors);
 
         if (Object.keys(validationErrors).length === 0) {
-            axios.post('http://localhost:8081/api/user/check', { email: values.email })
-                .then(response => {
-                    if (response.data.verified) {
-                        navigate('/loggedIn');
-                    } else {
-                        navigate('/pleaseVerify');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error checking user verification:', error);
-                    navigate('/pleaseVerify');
-                });
-        }
-    };
 
-    const handleRememberMe = (event) => {
-        if (event.target.checked) {
-            navigate('/loggedIn');
+            setCookie('email', values.email) // cookie for the email 
+
+            axios.post('http://localhost:8081/api/user/register', {
+                name: values.username,
+                email: values.email,
+                password: values.password
+            })
+            .then(res => {
+                console.log(res);
+                navigate('/pleaseVerify');
+                console.log('Form submitted successfully');
+            })
+            .catch(err => {
+                console.log(err);
+                let errorMessage = 'Signup failed. Please try again.';
+                if (err.response) {
+                    errorMessage = err.response.data.message || errorMessage;
+                } else if (err.request) {
+                    errorMessage = 'No response received from server. Please check your network connection.';
+                } else {
+                    errorMessage = err.message;
+                }
+                alert(errorMessage);
+            });
         }
     };
 
@@ -71,22 +77,31 @@ function Login() {
                         <h2><span>Sample page</span></h2>
                     </div>
                     <div className='top-button'>
-                        <p>I don't have an account</p>
-                        <button className='btn1' onClick={() => navigate('/register')}>Register</button>
+                        <p>I already have an account</p>
+                        <button className='btn1' onClick={() => navigate('/login')}>Login</button>
                     </div>
                 </div>
             </header>
             <div className='form'>
                 <div className='title'>
-                    <h2>Login</h2>
+                    <h2>Register</h2>
                 </div>
                 <form onSubmit={handleSubmit}>
                     <div className='input'>
                         <input
-                            placeholder='Enter username or email'
+                            placeholder='Enter username'
+                            name='username'
+                            value={values.username}
                             onChange={handleInput}
+                        />
+                        {errors.username && <span className='form_error'>{errors.username}</span>}
+                    </div>
+                    <div className='input'>
+                        <input
+                            placeholder='Enter email'
                             name='email'
                             value={values.email}
+                            onChange={handleInput}
                         />
                         {errors.email && <span className='form_error'>{errors.email}</span>}
                     </div>
@@ -94,24 +109,52 @@ function Login() {
                         <input
                             type='password'
                             placeholder='Enter password'
-                            onChange={handleInput}
                             name='password'
                             value={values.password}
+                            onChange={handleInput}
                         />
                         {errors.password && <span className='form_error'>{errors.password}</span>}
+                    </div>
+                    <div className='input'>
+                        <input
+                            type='password'
+                            placeholder='Confirm password'
+                            name='passwordRe'
+                            value={values.passwordRe}
+                            onChange={handleInput}
+                        />
+                        {errors.passwordRe && <span className='form_error'>{errors.passwordRe}</span>}
                     </div>
                     <div>
                         <input
                             type='checkbox'
-                            onChange={handleRememberMe}
+                            name='tandc'
+                            checked={values.tandc}
+                            onChange={handleInput}
                         />
-                        <label>Remember me</label>
+                        <label>Please Agree to the </label>
+                        <button
+                            type="button"
+                            onClick={() => alert("Terms and Conditions")}
+                            style={{
+                                background: "none",
+                                color: "blue",
+                                border: "none",
+                                padding: "0",
+                                cursor: "pointer",
+                                textDecoration: "underline",
+                                fontSize: "inherit"
+                            }}
+                        >
+                            Terms & Conditions
+                        </button>
                     </div>
-                    <button type='submit'>Login</button>
+                    {errors.tandc && <span className='form_error'>{errors.tandc}</span>}
+                    <button type='submit'>Sign in</button>
                 </form>
             </div>
         </>
     );
 }
 
-export default Login;
+export default Register;
