@@ -25,10 +25,15 @@
     margin-bottom: 5px;
 }
 
-.form input {
-    font-size: 1.1rem;
-    padding: 15px;
+.form .input{
     margin-bottom: 20px;
+
+}
+.form .input input {
+    width: 100%;
+    font-size: 1.1rem;
+    margin-bottom: 3px;
+    padding: 15px;
     border: 1px solid #ccc;
     border-radius: 5px;
 }
@@ -50,4 +55,10 @@
 
 .form button:hover {
     background-color: rgb(0, 100, 180);
+}
+
+.form_error{
+    font-size: 1rem;
+    color: rgb(255, 0, 0);
+    margin-left: 5px;
 }
