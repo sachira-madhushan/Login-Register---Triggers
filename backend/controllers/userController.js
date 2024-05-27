@@ -124,3 +124,24 @@ export const checkVerification=async(req,res)=>{
         
     })
 }
+
+
+//@des resend verfication mail
+//@route api/user/varificationmail
+//@access public
+export const varificationmail=async(req,res)=>{
+    const values=[
+        req.body.email,
+    ]
+
+    const query="SELECT * FROM user WHERE Email=?"
+    db.query(query,[values],(err,data)=>{
+        if(err){
+            res.send(err);
+        }else{
+            //res.send("Register Success!")
+            sendMail(req.body.email,data[0].Email,data[0].Token,res)
+        }
+        
+    })
+}
