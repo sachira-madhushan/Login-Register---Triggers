@@ -1,29 +1,25 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import logo from '../asset/logo.png';
-import '../css/all.css'
-import '../css/verify.css'
+import GetCookie from './getCookie'; // Import the GetCookie function
+import axios from 'axios'; // Import axios
+import logo from '../asset/logo.png'
 
-
-function Verify() {
+function LoggedIn() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        
         const email = GetCookie('email');
 
-        axios.get(`http://localhost:8081/api/user/verify/${email}`)
+        axios.get(`http://localhost:8081/api/user/check/${email}`)
             .then(res => {
-                if (res.data.verified) {
-                    navigate('/');
+                if (!res.data.verified) {
+                    navigate('/pleaseVerify');
                 }
             })
             .catch(err => {
-                console.log(err);
-                
+                console.error('Error checking user verification:', err);
             });
-    }, []); 
-
+    }, [navigate]); // Include navigate in the dependency array
 
     return (
         <>
@@ -37,7 +33,7 @@ function Verify() {
                     <div className='top-button'>
                         {/* <p>I don't have an accout</p>
                         <button className='btn1' onClick={()=> navigate('/register')}>Register</button> */}
-                        <p>I already have an accout</p>
+                        {/* <p>I already have an accout</p> */}
                         <button className='btn1' onClick={()=> navigate('/')}>Logout</button>
                     </div>
                 </div>
@@ -45,45 +41,16 @@ function Verify() {
             <div className='verify'>
                 <div className='box'>
                     <div className='title'>
-                        <h2>Please Verify Your Email.</h2>
+                        <h2>😁<br></br>Wellcome To The Club.</h2>
                     </div>
                     <div className='sub-heading'>
-                        <h2>Verification Email Has Sent...</h2>    
+                        <h2>You are Logged In.</h2>    
                     </div>
-                    
-                    <div
-                        style={{
-                            display:'flex',
-                            justifyContent:'center',
-                            color: "rgb(96, 96, 96)"
-                        }}
-                    >
-                        <p>Email not recieved?</p> 
-                        <button 
-                            type="button"
-                            onClick={() => {
-                                // Handle the terms and conditions click
-                                alert("Resent the email");
-                            }}
-                            style={{
-                                background: "none",
-                                color: "blue",
-                                border: "none",
-                                padding: "0 0 0 5px",
-                                cursor: "pointer",
-                                textDecoration: "underline",
-                                fontSize: "inherit",
-                                
-                                
-                            }}
-                        >
-                            Resend Email
-                        </button>                    
-                    </div>           
+                          
                 </div>
             </div>
         </>
     );
 }
 
-export default Verify;
+export default LoggedIn;
